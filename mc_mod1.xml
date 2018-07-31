@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+#######################################################################
+#	BleachBit
+#	Copyright (C) 2008-2018 Andrew Ziem
+#	http://www.bleachbit.org
+#
+#	@url https://midnight-commander.org/
+#	@tested ok 4.8.19-7 Fedora 28
+#	@note could not locate additional data to remove
+#
+#	@cleaner GNU Midnight Commander by Andrew Ziem
+#	@contributor muratoria
+#######################################################################
+#	This program is free software: you can redistribute it and/or modify
+#	it under the terms of the GNU General Public License as published by
+#	the Free Software Foundation, either version 3 of the License, or
+#	(at your option) any later version.
+#
+#	This program is distributed in the hope that it will be useful,
+#	but WITHOUT ANY WARRANTY; without even the implied warranty of
+#	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#	GNU General Public License for more details.
+#
+#	You should have received a copy of the GNU General Public License
+#	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#######################################################################
+-->
+<cleaner id="midnightcommander" os="linux">
+  <label>Midnight Commander</label>
+  <description>GNU orthadox file manager</description>
+  <running type="exe">mc</running>
+  <option id="use_history">
+    <label>Use History</label>
+    <description>Delete the usage history</description>
+    <action command="delete" search="file" path="~/.mc/filepos"/>
+    <action command="delete" search="file" path="~/.mc/history"/>
+    <!-- Fedora 28 uses $HOME/.local/share-->
+    <action command="delete" search="file" path="~/.local/share/mc/history"/>
+    <action command="delete" search="file" path="~/.local/share/mc/filepos"/>
+  </option>
+  <option id="cache">
+    <label>Cache</label>
+    <description>Delete the cache</description>
+    <action command="delete" search="walk.all" path="~/.cache/mc/"/>
+    <action command="delete" search="file" path="~/.cache/.mc_connections"/>
+  </option>
+</cleaner>

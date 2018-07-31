@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+#######################################################################
+#	BleachBit
+#	Copyright (C) 2008-2018 Andrew Ziem
+#	http://www.bleachbit.org
+#
+#	@url https://sourceforge.net/projects/workrave/
+#	@tested ok 1.10.20-2, Fedora 28
+#	@note could not locate additional data to remove
+#
+#	@cleaner Workrave Break Reminder
+#	@contributor muratoria
+#######################################################################
+#	This program is free software: you can redistribute it and/or modify
+#	it under the terms of the GNU General Public License as published by
+#	the Free Software Foundation, either version 3 of the License, or
+#	(at your option) any later version.
+#
+#	This program is distributed in the hope that it will be useful,
+#	but WITHOUT ANY WARRANTY; without even the implied warranty of
+#	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#	GNU General Public License for more details.
+#
+#	You should have received a copy of the GNU General Public License
+#	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#######################################################################
+-->
+<cleaner id="workrave" os="linux">
+  <label>Workrave</label>
+  <description>time management/productivity</description>
+  <running type="exe">workrave</running>
+  <option id="use_history">
+    <label>Use History</label>
+    <description>Deletes the usage history</description>
+    <action command="delete" search="file" path="~/.workrave/historystats"/>
+    <action command="delete" search="file" path="~/.workrave/todaystats"/>
+    <action command="delete" search="file" path="~/.workrave/state"/>
+    <action command="delete" search="file" path="~/.workrave/idlelog.idx"/>
+  </option>
+  <option id="logs">
+    <label>Logs</label>
+    <description>Delete log files</description>
+    <action command="delete" search="glob" path="~/.workrave/*.log"/>
+  </option>
+  <option id="uid">
+    <label>UID</label>
+    <description>Deletes user ID</description>
+    <action command="delete" search="file" path="~/.workrave/id"/>
+  </option>
+</cleaner>

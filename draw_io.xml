@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+#######################################################################
+#	BleachBit
+#	Copyright (C) 2008-2018 Andrew Ziem
+#	http://www.bleachbit.org
+#
+#	@url https://www.draw.io/
+#	@tested ok v8.9.7, Fedora 28
+#	@note TODO: ~/.config/draw.io/QuotaManager (use quota?)
+#
+#	@cleaner Draw.io
+#	@contributor muratoria
+#######################################################################
+#	This program is free software: you can redistribute it and/or modify
+#	it under the terms of the GNU General Public License as published by
+#	the Free Software Foundation, either version 3 of the License, or
+#	(at your option) any later version.
+#
+#	This program is distributed in the hope that it will be useful,
+#	but WITHOUT ANY WARRANTY; without even the implied warranty of
+#	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#	GNU General Public License for more details.
+#
+#	You should have received a copy of the GNU General Public License
+#	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#######################################################################
+-->
+<cleaner id="draw_io" os="linux">
+  <label>Draw.io</label>
+  <description>diagramming application</description>
+  <running type="exe">draw.io</running>
+  <option id="cache">
+    <label>Cache</label>
+    <description>Delete the cache</description>
+    <action command="delete" search="walk.all" path="~/.config/draw.io/Cache"/>
+    <action command="delete" search="walk.all" path="~/.config/draw.io/Application Cache/Cache/"/>
+    <action command="delete" search="walk.all" path="~/.config/draw.io/GPUCache/"/>
+  </option>
+  <option id="cookies">
+    <label>Cookies</label>
+    <description>Delete cookies, which contain information such as web site preferences, authentication, and tracking identification</description>
+    <action command="delete" search="file" path="~/.config/draw.io/Cookies"/>
+    <action command="delete" search="file" path="~/.config/draw.io/Cookies-journal"/>
+  </option>
+  <option id="local_stroage">
+    <label>Local Storage </label>
+    <description>Deletes local drawing storage</description>
+    <warning>Does not delete exported versions</warning>
+    <action command="delete" search="walk.files" path="~/.config/draw.io/Local Storage/leveldb/"/>
+  </option>
+  <option id="vacuum">
+    <label>Vacuum</label>
+    <description>Clean database fragmentation to reduce space and improve speed without removing any data</description>
+    <action command="sqlite.vacuum" search="file" path="~/.config/draw.io/Cookies"/>
+    <action command="sqlite.vacuum" search="file" path="~/.config/draw.io/QuotaManager"/>
+  </option>
+</cleaner>
