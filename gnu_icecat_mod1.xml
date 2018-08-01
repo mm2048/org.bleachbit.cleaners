@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+#######################################################################
+#	BleachBit
+#	Copyright (C) 2008-2018 Andrew Ziem
+#	http://www.bleachbit.org
+#
+#	@url https://directory.fsf.org/wiki/IceCat
+#	@tested ok 52.8.1, Fedora 28
+#	@note TODO: url_history with bookmark preservation
+#
+#	@cleaner GNU IceCat by Andrew Ziem
+#	@contributor muratoria
+#######################################################################
+#	This program is free software: you can redistribute it and/or modify
+#	it under the terms of the GNU General Public License as published by
+#	the Free Software Foundation, either version 3 of the License, or
+#	(at your option) any later version.
+#
+#	This program is distributed in the hope that it will be useful,
+#	but WITHOUT ANY WARRANTY; without even the implied warranty of
+#	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#	GNU General Public License for more details.
+#
+#	You should have received a copy of the GNU General Public License
+#	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#######################################################################
+-->
+<cleaner id="gnu_icecat" os="linux">
+  <label>GNU IceCat</label>
+  <description>web browser</description>
+  <running type="exe">icecat</running>
+  <option id="bookmark_backups">
+    <label> Bookmark Backups</label>
+    <description>Delete the bookmark backup files</description>
+    <action command="delete" search="walk.files" path="~/.mozilla/icecat/????????.*/bookmarkbackups/"/>
+  </option>
+  <option id="cache">
+    <label>Cache</label>
+    <description>Delete the web cache, which reduces time to display revisited pages</description>
+    <action command="delete" search="walk.all" path="~/.gnuzilla/icecat/*.*/Cache"/>
+    <action command="delete" search="walk.all" path="~/.cache/icecat/*.*/Cache"/>
+    <!--Fedeora 28 w/ GNU IceCat 52.8.1 uses ~/.cache/mozilla/icecat/ -->
+    <action command="delete" search="walk.all" path="~/.cache/mozilla/icecat/"/>
+  </option>
+  <option id="content_prefs">
+    <label>Content Preferences</label>
+    <description>Custom settings for pop-ups, fonts, languages, etc</description>
+    <action command="delete" search="glob" path="~/.mozilla/icecat/????????.*/content-prefs.sq*"/>
+  </option>
+  <option id="cookies">
+    <label>Cookies</label>
+    <description>Clean cookies, which contain information such as web site preferences, authentication, and tracking identification</description>
+    <action command="delete" search="glob" path="~/.gnuzilla/icecat/*.default/cookies.sqlite"/>
+    <action command="delete" search="glob" path="~/.mozilla/icecat/????????.*/cookies.sq*"/>
+  </option>
+  <option id="datareporting">
+    <label>Data Reporting</label>
+    <description>[about:telemetry] Browser health report and performance metrics sent to Mozilla.</description>
+    <action command="delete" search="glob" path="~/.mozilla/icecat/????????.*/times.json"/>
+    <action command="delete" search="glob" path="~/.mozilla/icecat/????????.*/Telemetry.ShutdownTime.txt"/>
+    <action command="delete" search="glob" path="~/.mozilla/icecat/????????.*/shield-preference-experiments.json"/>
+    <action command="delete" search="walk.all" path="~/.mozilla/icecat/Pending Pings/"/>
+    <action command="delete" search="walk.all" path="~/.mozilla/icecat/????????.*/datareporting/"/>
+    <action command="delete" search="walk.all" path="~/.mozilla/icecat/????????.*/saved-telemetry-pings/"/>
+  </option>
+  <option id="dom">
+    <label>DOM Storage</label>
+    <description>[about:serviceworkers] Delete HTML5 Cookies</description>
+    <action command="delete" search="walk.all" path="~/.mozilla/icecat/????????.*/storage/"/>
+    <action command="delete" search="glob" path="~/.mozilla/icecat/????????.*/storage-sync.sq*"/>
+    <action command="delete" search="glob" path="~/.mozilla/icecat/????????.*/webappsstore.sq*"/>
+    <action command="delete" search="glob" path="~/.mozilla/icecat/????????.*/serviceworker.txt"/>
+    <action command="delete" search="glob" path="~/.mozilla/icecat/????????.*/SiteSecurityServiceState.txt"/>
+  </option>
+  <option id="download_history">
+    <label>Download history</label>
+    <description>Clean the list of downloaded files</description>
+    <action command="delete" search="glob" path="~/.gnuzilla/icecat/*.default/downloads.sqlite"/>
+    <action command="delete" search="glob" path="~/.mozilla/icecat/????????.*/downloads.sqlite"/>
+  </option>
+  <option id="form_history">
+    <label>Form History</label>
+    <description>Clean the Form History, also known as "AutoComplete"</description>
+    <action command="delete" search="glob" path="~/.gnuzilla/icecat/*.default/formhistory.sqlite"/>
+    <action command="delete" search="glob" path="~/.mozilla/icecat/????????.*/formhistory.sq*"/>
+  </option>
+  <!--
+  <option id="history">
+    <label>History</label>
+    <description>Clean the list of visited web pages</description>
+    <warning>May not work with IceCat 52+, see 'Places' for temporary fix</warning>
+    <action command="mozilla_url_history" search="glob" path="~/.gnuzilla/icecat/*.default/places.sqlite"/>
+    <action command="mozilla_url_history" search="glob" path="~/.mozilla/icecat/????????.*/places.sqlite*"/>
+  </option>
+  -->
+  <option id="offline_cache">
+    <label>Offline Cache</label>
+    <description>Clean the cache collected while visiting pages offline</description>
+    <action command="delete" search="glob" path="~/.cache/mozilla/icecat/????????.*/OfflineCache/*"/>
+    <action command="delete" search="glob" path="~/.gnuzilla/icecat/*.default/OfflineCache/index.sqlite"/>
+    <!-- IceCat 52.8.1 uses ~/.cache/mozilla/icecat/*/OfflineCache, which is covered under id="cache"-->
+  </option>
+  <option id="passwords">
+    <label>Passwords</label>
+    <description>A database of usernames and passwords as well as a list of sites that should not store passwords</description>
+    <warning>This option will delete your saved passwords</warning>
+    <action command="delete" search="glob" path="~/.mozilla/icecat/????????.*/signons.sqlite"/>
+    <!-- Fedora 28 -->
+    <action command="delete" search="glob" path="~/.mozilla/icecat/????????.*/key?.db"/>
+  </option>
+  <option id="places">
+    <label>Places</label>
+    <description>A database of URLs including bookmarks, favicons, and a history of visited web sites</description>
+    <warning>This option deletes all bookmarks. Backup/Restore Bookmarks: https://support.mozilla.org/en-US/kb/restore-bookmarks-from-backup-or-move-them</warning>
+    <!--<action command="delete" search="glob" path="~/.mozilla/firefox/*/places.sqlite*"/>-->
+    <!-- Fedora 28 w/IceCat 52.8.1-->
+    <action command="delete" search="glob" path="~/.mozilla/icecat/????????.*/places.sqlite*"/>
+  </option>
+  <option id="search_history">
+    <label>Search</label>
+    <description>Clean history in the browser's search bar</description>
+    <action command="delete" search="glob" path="~/.gnuzilla/icecat/*.default/search.sqlite"/>
+  </option>
+  <option id="site_permissions">
+    <label>Site Permissions</label>
+    <description>Specifies which websites are allowed to store cookies, read location data, run scripts etc.</description>
+    <action command="delete" search="glob" path="~/.thunderbird/????????.*/permissions.sq*"/>
+  </option>
+  <option id="stored_sessions">
+    <label>Stored Sessions</label>
+    <description>Stored details on tabs and windows for previous sessions. </description>
+    <action command="delete" search="glob" path="~/.mozilla/icecat/????????.*/sessionstore.js"/>
+    <action command="delete" search="walk.all" path="~/.mozilla/icecat/" regex="session-state.json"/>
+    <action command="delete" search="walk.all" path="~/.mozilla/icecat/????????.*/sessionstore-backups/"/>
+  </option>
+  <option id="sync_logs">
+    <label>Sync Logs</label>
+    <description>Delete the log files generated from the Firefox Sync feature.</description>
+    <action command="delete" search="walk.all" path="~/.mozilla/icecat/????????.*/weave/logs/"/>
+  </option>
+</cleaner>

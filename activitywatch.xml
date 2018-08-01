@@ -44,6 +44,6 @@
   <option id="cache_logs">
     <label>Logs</label>
     <description>Delete the logs</description>
-    <action command="delete" search="walk.all" path="~/.cache/activitywatch/logs/" regex="\.log$"/>
+    <action command="delete" search="walk.all" path="~/.cache/activitywatch/log/" regex="\.log$"/>
   </option>
 </cleaner>

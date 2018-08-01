@@ -1,128 +1,121 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 #######################################################################
-# BleachBit
-# Copyright (C) 2008-2018 Andrew Ziem
-# http://www.bleachbit.org
+#	BleachBit
+#	Copyright (C) 2008-2018 Andrew Ziem
+#	http://www.bleachbit.org
 #
-# Firefox Quantum Cleaner by muratoria
-# 2018: Bleachbit 2.0
-# Tested on \
-# Linux-4.17.5-200.fc28.x86_64-x86_64-with-fedora-28-Twenty_Eight
-# with Firefox 61.0.1, 62.0b8
+#	@url https://mozilla.org
+#	@tested ok 61.0.(snap) & 62.0b12(dev), Fedora 28
+#	@note TODO: remove url history without deleting bookmarks
+#
+#	@cleaner Firefox Quantum (57+)
+#	@contributor muratoria
 #######################################################################
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
+#	This program is free software: you can redistribute it and/or modify
+#	it under the terms of the GNU General Public License as published by
+#	the Free Software Foundation, either version 3 of the License, or
+#	(at your option) any later version.
 #
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+#	This program is distributed in the hope that it will be useful,
+#	but WITHOUT ANY WARRANTY; without even the implied warranty of
+#	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#	GNU General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#	You should have received a copy of the GNU General Public License
+#	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #######################################################################
+# Fedora 28 Snapcraft Firefox > $HOME/snap/firefox/common/ (default)
 -->
 <cleaner id="firefox_quantum" os="linux">
   <label>Firefox Quantum</label>
-  <description>[about:about] Web Browser </description>
+  <description>[about:about] Web Browser</description>
   <running type="exe">firefox</running>
   <running type="exe">firefox-bin</running>
-  <!--Bookmark Backups-->
   <option id="bookmark_backups">
-    <label>Backups: Bookmarks</label>
-    <description>[about:cache] Web files stored to your local drive for offline and startup functions.</description>
-    <action command="delete" search="walk.files" path="~/.mozilla/firefox/????????.*/bookmarkbackups/" regex="\.jsonlz4$"/>
+    <label>Bookmark backups</label>
+    <description>Deletes backup files for user bookmarks</description>
+    <action command="delete" search="walk.all" path="~/.mozilla/firefox/????????.*/bookmarkbackups/" regex="\.jsonlz4$"/>
+    <action command="delete" search="walk.all" path="~/snap/firefox/common/.mozilla/firefox/????????.*/bookmarkbackups/" regex="\.jsonlz4$"/>
   </option>
-  <!--Cache-->
-  <option id="c_d">
-    <label>Cache: Disk</label>
-    <description>[about:cache] Web files stored to your local drive for offline and startup functions.</description>
-    <action command="delete" search="walk.files" path="~/.cache/mozilla/firefox/"/>
-  </option>
-  <option id="b_c">
-    <label>Cache: Browser</label>
-    <description>[about:cache] Web files stored to your local drive to reduce browser latency. </description>
+  <option id="cache">
+    <label>Cache</label>
+    <description>[about:cache] Delete the web cache, which reduces time to display revisited pages</description>
+    <action command="delete" search="walk.all" path="~/.cache/mozilla/firefox/"/>
     <action command="delete" search="walk.files" path="~/.mozilla/firefox/????????.*/cache2/"/>
-    <action command="delete" search="walk.all" path="~/.mozilla/firefox/????????.*/safebrowsing/"/>
+    <!--All safebrowsing data is in cache. TODO: verify -->
+    <!--<action command="delete" search="walk.all" path="~/.mozilla/firefox/????????.*/safebrowsing/"/>-->
+    <action command="delete" search="walk.all" path="~/snap/firefox/common/.cache/"/>
   </option>
-  <!--Cookies-->
   <option id="cookies">
-    <label>Cookies: Traditional</label>
-    <description>[about:preferences#privacy] Session data stored locally by sites.</description>
+    <label>Cookies</label>
+    <description>Delete cookies, which contain information such as web site preferences, authentication, and tracking identification</description>
     <action command="delete" search="glob" path="~/.mozilla/firefox/????????.*/cookies.sq*"/>
+    <action command="delete" search="glob" path="~/snap/firefox/common/.mozilla/firefox/????????.*/cookies.sq*"/>
   </option>
-  <!--Content Prefs-->
   <option id="content_prefs">
     <label>Content Preferences</label>
     <description>Custom settings for pop-ups, fonts, languages, etc</description>
     <action command="delete" search="glob" path="~/.mozilla/firefox/????????.*/content-prefs.sq*"/>
+    <action command="delete" search="glob" path="~/snap/firefox/common/.mozilla/firefox/????????.*/content-prefs.sq*"/>
   </option>
-  <!--Crash Reports-->
   <option id="crash_reports">
     <label>Crash Reports</label>
     <description>[about:crashes] System information generated by Firefox to debug crashes.</description>
-    <action command="delete" search="walk.all" path="~/.mozilla/firefox/????????.*/crashes/"/>
     <action command="delete" search="walk.all" path="~/.mozilla/firefox/Crash Reports/"/>
+    <action command="delete" search="walk.all" path="~/.mozilla/firefox/????????.*/crashes/"/>
+    <action command="delete" search="walk.all" path="~/snap/firefox/common/.mozilla/firefox/Crash Reports/"/>
+    <action command="delete" search="walk.all" path="~/snap/firefox/common/.mozilla/firefox/????????.*/crashes/"/>
   </option>
-  <!--DataReports-->
   <option id="datareporting">
     <label>Data Reporting</label>
     <description>[about:telemetry] Browser health report and performance metrics sent to Mozilla.</description>
+    <action command="delete" search="glob" path="~/.mozilla/firefox/????????.*/times.json"/>
+    <action command="delete" search="glob" path="~/.mozilla/firefox/????????.*/Telemetry.ShutdownTime.txt"/>
+    <action command="delete" search="glob" path="~/.mozilla/firefox/????????.*/shield-preference-experiments.json"/>
+    <action command="delete" search="walk.all" path="~/.mozilla/firefox/Pending Pings/"/>
     <action command="delete" search="walk.all" path="~/.mozilla/firefox/????????.*/datareporting/"/>
-    <action command="delete" search="walk.files" path="~/.mozilla/firefox/????????.*/saved-telemetry-pings/"/>
-    <action command="delete" search="walk.files" path="~/.mozilla/firefox/Pending Pings/"/>
+    <action command="delete" search="walk.all" path="~/.mozilla/firefox/????????.*/saved-telemetry-pings/"/>
+    <action command="delete" search="glob" path="~/snap/firefox/common/.mozilla/firefox/????????.*/times.json"/>
+    <action command="delete" search="glob" path="~/snap/firefox/common/.mozilla/firefox/????????.*/Telemetry.ShutdownTime.txt"/>
+    <action command="delete" search="glob" path="~/snap/firefox/common/.mozilla/firefox/????????.*/shield-preference-experiments.json"/>
+    <action command="delete" search="walk.all" path="~/snap/firefox/common/.mozilla/firefox/Pending Pings/"/>
+    <action command="delete" search="walk.all" path="~/snap/firefox/common/.mozilla/firefox/????????.*/datareporting/"/>
+    <action command="delete" search="walk.all" path="~/snap/firefox/common/.mozilla/firefox/????????.*/saved-telemetry-pings/"/>
   </option>
-  <!--File Handling-->
-  <option id="handlers">
+  <!--Persistant Web Storage DOM + HSTS -->
+  <option id="dom">
+    <label>DOM Storage</label>
+    <description>[about:serviceworkers]Delete HTML5 Cookies</description>
+    <action command="delete" search="walk.all" path="~/.mozilla/firefox/????????.*/storage/"/>
+    <action command="delete" search="glob" path="~/.mozilla/firefox/????????.*/webappsstore.sq*"/>
+    <action command="delete" search="glob" path="~/.mozilla/firefox/????????.*/serviceworker.txt"/>
+    <action command="delete" search="glob" path="~/.mozilla/firefox/????????.*/SiteSecurityServiceState.txt"/>
+    <action command="delete" search="walk.all" path="~/snap/firefox/common/.mozilla/firefox/????????.*/storage/"/>
+    <action command="delete" search="glob" path="~/snap/firefox/common/.mozilla/firefox/????????.*/webappsstore.sq*"/>
+    <action command="delete" search="glob" path="~/snap/firefox/common/.mozilla/firefox/????????.*/SiteSecurityServiceState.txt"/>
+  </option>
+  <option id="download_actions">
     <label>Download Actions</label>
     <description>Firefox stored preferences for how to handle different file types.</description>
     <action command="delete" search="glob" path="~/.mozilla/firefox/????????.*/handlers.json"/>
+    <action command="delete" search="glob" path="~/snap/firefox/common/.mozilla/firefox/????????.*/handlers.json"/>
   </option>
-  <!--Form History or Autocomplete-->
   <option id="formhistory">
     <label>Form History</label>
-    <description>Autocomplete or Autofill entries.</description>
+    <description>Clean the Form History, also known as "AutoComplete"</description>
     <action command="delete" search="glob" path="~/.mozilla/firefox/????????.*/formhistory.sq*"/>
+    <action command="delete" search="glob" path="~/snap/firefox/common/.mozilla/firefox/????????.*/formhistory.sq*"/>
   </option>
-  <!--Passwords-->
   <option id="passwords">
     <label>Passwords</label>
-    <description>Firefox NSS key database for stored passwords and login details.</description>
-    <warning>Please confirm to delete stored passwords</warning>
-    <!-- Firefox 58+  -->
-    <action command="delete" search="glob" path="~/.mozilla/firefox/????????.*/key4.db"/>
+    <description>A database of usernames and passwords as well as a list of sites that should not store passwords</description>
+    <warning>This option will delete your saved passwords</warning>
     <!-- Firefox < 58 -->
     <action command="delete" search="glob" path="~/.mozilla/firefox/????????.*/key3.db"/>
-  </option>
-  <!--Permissions-->
-  <option id="permissions">
-    <label>Site Permissions</label>
-    <description>Specifies which websites are allowed to store cookies, read location data, run scripts etc.</description>
-    <action command="delete" search="glob" path="~/.mozilla/firefox/????????.*/permissions.sq*"/>
-  </option>
-  <!--Persistant Web Storage DOM + HSTS -->
-  <option id="ws_d">
-    <label>Web Storage: DOMs</label>
-    <description>Alternative storage medium for user and web data</description>
-    <action command="delete" search="glob" path="~/.mozilla/firefox/????????.*/webappsstore.sq*"/>
-  </option>
-  <option id="ws_sw">
-    <label>Web Storage: Service Workers</label>
-    <description>[about:serviceworkers] Syncs web content in order to provide access while offline.</description>
-    <action command="delete" search="glob" path="~/.mozilla/firefox/????????.*/serviceworker.txt"/>
-  </option>
-  <option id="ws_hi">
-    <label>Web Storage: HSTS Index</label>
-    <description>Index listing of stored HSTS information.</description>
-    <action command="delete" search="glob" path="~/.mozilla/firefox/????????.*/SiteSecurityServiceState.txt"/>
-  </option>
-  <option id="ws_hf">
-    <label>Web Storage: HSTS Files</label>
-    <description>Contains persistant user data that may be used to faciliate device fingerprinting.</description>
-    <action command="delete" search="walk.all" path="~/.mozilla/firefox/????????.*/storage/"/>
+    <!-- Firefox 58+  -->
+    <action command="delete" search="glob" path="~/.mozilla/firefox/????????.*/key4.db"/>
+    <action command="delete" search="glob" path="~/snap/firefox/common/.mozilla/firefox/????????.*/key4.db"/>
   </option>
   <!--
   FIXME:URL History
@@ -133,21 +126,42 @@
      <action command="mozilla_url_history" search="file" path="~/.mozilla/firefox/7bohhf5k.dev-edition-default/places.sqlite"/>
      <action command="delete" search="glob" path="~/.mozilla/firefox/????????.*/favicons.sq*"/>
  </option>
- -->
-  <!--Sessions -->
-  <option id="session_backups">
+  -->
+  <option id="places">
+    <label>Places</label>
+    <description>A database of URLs including bookmarks, favicons, and a history of visited web sites</description>
+    <warning>This option deletes all bookmarks. Backup/Restore Bookmarks: https://support.mozilla.org/en-US/kb/restore-bookmarks-from-backup-or-move-them</warning>
+    <action command="delete" search="glob" path="~/.mozilla/firefox/????????.*/places.sq*"/>
+    <action command="delete" search="glob" path="~/.mozilla/firefox/????????.*/favicons.sq*"/>
+    <action command="delete" search="glob" path="~/snap/firefox/common/.mozilla/firefox/????????.*/places.sq*"/>
+    <action command="delete" search="glob" path="~/snap/firefox/common/.mozilla/firefox/????????.*/favicons.sq*"/>
+  </option>
+  <option id="site_permissions">
+    <label>Site Permissions</label>
+    <description>Specifies which websites are allowed to store cookies, read location data, run scripts etc.</description>
+    <action command="delete" search="glob" path="~/.mozilla/firefox/????????.*/permissions.sq*"/>
+    <action command="delete" search="glob" path="~/snap/firefox/common/.mozilla/firefox/????????.*/permissions.sq*"/>
+  </option>
+  <option id="stored_sessions">
     <label>Stored Sessions</label>
-    <description>Stored details on tabs and windows for previous sessions. </description>
+    <description>Stored details on tabs and windows for previous sessions.</description>
     <action command="delete" search="glob" path="~/.mozilla/firefox/????????.*/sessionstore.jsonlz4"/>
     <action command="delete" search="walk.files" path="~/.mozilla/firefox/????????.*/sessionstore-backups/"/>
+    <action command="delete" search="glob" path="~/snap/firefox/common/.mozilla/firefox/????????.*/sessionstore.jsonlz4"/>
+    <action command="delete" search="walk.files" path="~/snap/firefox/common/.mozilla/firefox/????????.*/sessionstore-backups/"/>
   </option>
-  <!-- Vacuum-->
+  <option id="sync_logs">
+    <label>Sync Logs</label>
+    <description>Delete the log files generated from the Firefox Sync feature.</description>
+    <action command="delete" search="walk.all" path="~/.mozilla/firefox/????????.*/weave/" regex="tabs.json$"/>
+    <action command="delete" search="walk.all" path="~/snap/firefox/common/.mozilla/firefox/????????.*/weave/" regex="tabs.json$"/>
+  </option>
   <option id="vacuum">
-    <label>VACUUM</label>
-    <description> Rebuilds and repacks the database files.</description>
+    <label>Vacuum</label>
+    <description>Clean database fragmentation to reduce space and improve speed without removing any data</description>
     <warning>Expected Results: 10-30 / profile (disable for excessive results)</warning>
-    <action command="sqlite.vacuum" search="walk.files" path="~/.cache/mozilla/firefox/????????.*/" regex="\.sqlite$"/>
-    <action command="sqlite.vacuum" search="walk.files" path="~/.mozilla/firefox/????????.*/" regex="\.sqlite$"/>
+    <action command="sqlite.vacuum" search="walk.all" path="~/.cache/mozilla/firefox/????????.*/" regex="\.sqlite$"/>
+    <action command="sqlite.vacuum" search="walk.all" path="~/.mozilla/firefox/????????.*/" regex="\.sqlite$"/>
     <!-- <action command="sqlite.vacuum" search="walk.files" path="~/.mozilla/firefox/????????.*/" regex="\.db$"/> -->
   </option>
 </cleaner>

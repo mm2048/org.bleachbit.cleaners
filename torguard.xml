@@ -5,12 +5,11 @@
 #	Copyright (C) 2008-2018 Andrew Ziem
 #	http://www.bleachbit.org
 #
-#	@url https://xine-project.org
-#	@tested ok 0.99.10-2(xine-ui), Fedora 28
-#	@tested ok 0.5.910-2(gxine), Fedora 28
-#	@note TODO ~/.xine/config >> media.files.origin_path:
+#	@url https://torguard.net
+#	@tested ok v3.86.1, Fedora 28
+#	@note could not locate additional data to remove
 #
-#	@cleaner Xine-UI by Andrew Ziem
+#	@cleaner TorGuard
 #	@contributor muratoria
 #######################################################################
 #	This program is free software: you can redistribute it and/or modify
@@ -27,24 +26,29 @@
 #	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #######################################################################
 -->
-<cleaner id="xine_ui" os="linux">
-  <label>Xine-UI</label>
-  <description>multimedia viewer</description>
-  <running type="exe">xine</running>
+<cleaner id="torguard" os="linux">
+  <label>Torguard</label>
+  <description>vpn client</description>
+  <running type="exe">torguard</running>
   <option id="cache">
     <label>Cache</label>
     <description>Delete the cache</description>
-    <action command="delete" search="file" path="~/.xine/catalog.cache"/>
-    <action command="delete" search="file" path="~/.cache/xine-lib/plugins.cache"/>
+    <action command="delete" search="walk.all" path="~/.cache/VPNetworkLLC/"/>
+    <action command="delete" search="walk.all" path="~/.cache/*/TorGuard/"/>
   </option>
-  <option id="mru">
-    <label>Most recently used</label>
-    <description>Delete the list of recently used files</description>
-    <action command="delete" search="glob" path="~/.xine/*.tox"/>
+  <option id="dns">
+    <label>DNS Settings</label>
+    <description>Delete the saved DNS settings</description>
+    <action command="ini" section="saved-resolv.conf" search="file" path="~/.config/VPNetworkLLC/TorGuard.conf"/>
   </option>
-  <option id="skins">
-    <label>Skins</label>
-    <description>Deletes nonessential player skins</description>
-    <action command="delete" search="walk.files" path="~/.xine/skins/"/>
+  <option id="logs">
+    <label>Logs</label>
+    <description>Delete the logs</description>
+    <action command="delete" search="glob" path="~/.local/share/VPNetworkLLC/TorGuard/logs/*"/>
+  </option>
+  <option id="passwords">
+    <label>Password</label>
+    <description/>
+    <action command="ini" search="file" section="login" path="~/.config/VPNetworkLLC/TorGuard.conf"/>
   </option>
 </cleaner>

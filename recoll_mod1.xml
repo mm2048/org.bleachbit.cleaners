@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+#######################################################################
+#	BleachBit
+#	Copyright (C) 2008-2018 Andrew Ziem
+#	http://www.bleachbit.org
+#
+#	@url https://www.lesbonscomptes.com/recoll/ (1.23.7)
+#	@url https://xapian.org (1.4.6)
+#	@tested ok , Fedora 28
+#	@note could not locate any additional data
+#
+#	@cleaner Recoll by Andrew Ziem
+#	@contributor muratoria
+#######################################################################
+#	This program is free software: you can redistribute it and/or modify
+#	it under the terms of the GNU General Public License as published by
+#	the Free Software Foundation, either version 3 of the License, or
+#	(at your option) any later version.
+#
+#	This program is distributed in the hope that it will be useful,
+#	but WITHOUT ANY WARRANTY; without even the implied warranty of
+#	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#	GNU General Public License for more details.
+#
+#	You should have received a copy of the GNU General Public License
+#	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#######################################################################
+-->
+<cleaner id="recoll" os="linux">
+  <label>Recoll</label>
+  <description>desktop search tool</description>
+  <running type="exe">recoll</running>
+  <option id="dictionary">
+    <label>Aspell Dictionary</label>
+    <description>Delete the GNU Aspell dictionary generated from the index.</description>
+    <action command="delete" search="file" path="~/.recoll/aspdict.en.rws"/>
+    <action command="delete" search="walk.all" path="~/.recoll/mboxcache/"/>
+  </option>
+  <option id="history">
+    <label>History</label>
+    <description>Delete history files for the current index</description>
+    <action command="delete" search="file" path="~/.recoll/history"/>
+    <action command="delete" search="file" path="~/.recoll/missing"/>
+    <action command="ini" section="Recoll" search="file" path="~/.config/Recoll.org/recoll.conf"/>
+  </option>
+  <option id="index">
+    <label>Index</label>
+    <description>Delete the index database, which may contain an index of file and folder names, media metadata and document contents. Indices will be rebuilt on next run.</description>
+    <action command="delete" search="file" path="~/.config/Recoll.org/needidxretrydate"/>
+    <action command="delete" search="walk.files" path="~/.recoll/xapiandb/"/>
+    <action command="delete" search="file" path="~/.recoll/idxstatus.txt"/>
+    <action command="delete" search="file" path="~/.recoll/index.pid"/>
+  </option>
+  <option id="settings">
+    <label>Settings</label>
+    <description>Delete user settings settings</description>
+    <action command="delete" search="file" path="~/.recoll/recoll.conf"/>
+  </option>
+</cleaner>

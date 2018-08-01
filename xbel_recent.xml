@@ -5,11 +5,11 @@
 #	Copyright (C) 2008-2018 Andrew Ziem
 #	http://www.bleachbit.org
 #
-#	@url https://git.xfce.org/apps/oragel
-#	@tested ok 4.12.1, Fedora 28
-#	@note could not locate additional data to remove
+#	@url
+#	@tested ok, Fedora 28
+#	@note
 #
-#	@cleaner Orage
+#	@cleaner Most Recently Used
 #	@contributor muratoria
 #######################################################################
 #	This program is free software: you can redistribute it and/or modify
@@ -25,16 +25,18 @@
 #	You should have received a copy of the GNU General Public License
 #	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #######################################################################
+# Fedora 28 generates backup recently-used.xbel files
+# I don't know if this was default or if I adjusted a setting
 -->
-<cleaner id="orage" os="linux">
-  <label>Orage</label>
-  <description>calender application</description>
-  <running type="exe">orage</running>
-  <option id="calender">
-    <label>Calender</label>
-    <description>Delete calender events, categories and alarms</description>
-    <action command="delete" search="walk.files" path="~/.local/share/orage/" regex="\.ics$"/>
-    <action command="delete" search="file" path="~/.local/share/orage/orage_categories.txt"/>
-    <action command="delete" search="file" path="~/.local/share/orage/orage_persistent_alarms.txt"/>
+<cleaner id="xbel_recent" os="linux">
+  <label>XBEL Recents</label>
+  <description>file system metadata</description>
+  <option id="mru">
+    <label>Most recently used</label>
+    <description>Delete backup recently-used lists as well as current lists in snapcraft packages</description>
+    <action command="delete" search="glob" path="~/.local/share/recently-used.xbel.??????"/>
+    <action command="delete" search="walk.all" path="~/" regex="recently-used.xbel$"/>
+    <!--<action command="delete" search="walk.all" regex="/^recently\-used\.xbel\.[A-Z][0-9]{5}$"/> -->
+    <!--<action command="delete" search="walk.all" regex="/^recently\-used\.xbel$"/> -->
   </option>
 </cleaner>

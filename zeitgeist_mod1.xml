@@ -5,11 +5,12 @@
 #	Copyright (C) 2008-2018 Andrew Ziem
 #	http://www.bleachbit.org
 #
-#	@url https://git.xfce.org/apps/oragel
-#	@tested ok 4.12.1, Fedora 28
-#	@note could not locate additional data to remove
+#	@url https://launchpad.net/zeitgeist-project
+#	@tested ok , Fedora 28
+#	@note more data may be available for front end applications
+#		that use the zeistgeist framework, such as gnome-activity-journal
 #
-#	@cleaner Orage
+#	@cleaner Zeitgeist-Project by nodiscc (Copyright (C) 2014 nodiscc)
 #	@contributor muratoria
 #######################################################################
 #	This program is free software: you can redistribute it and/or modify
@@ -26,15 +27,13 @@
 #	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #######################################################################
 -->
-<cleaner id="orage" os="linux">
-  <label>Orage</label>
-  <description>calender application</description>
-  <running type="exe">orage</running>
-  <option id="calender">
-    <label>Calender</label>
-    <description>Delete calender events, categories and alarms</description>
-    <action command="delete" search="walk.files" path="~/.local/share/orage/" regex="\.ics$"/>
-    <action command="delete" search="file" path="~/.local/share/orage/orage_categories.txt"/>
-    <action command="delete" search="file" path="~/.local/share/orage/orage_persistent_alarms.txt"/>
+<cleaner id="zeitgeist" os="linux">
+  <label>Zeitgeist</label>
+  <description>event logging</description>
+  <option id="database">
+    <label>Database</label>
+    <description>Delete the logged events database</description>
+    <action command="delete" search="glob" path="~/.local/share/zeitgeist/activity.sq*"/>
+    <action command="delete" search="walk.files" path="~/.local/share/zeitgeist/fts-index/"/>
   </option>
 </cleaner>

@@ -5,11 +5,11 @@
 #	Copyright (C) 2008-2018 Andrew Ziem
 #	http://www.bleachbit.org
 #
-#	@url https://git.xfce.org/apps/oragel
-#	@tested ok 4.12.1, Fedora 28
+#	@url https://community.kde.org/Baloo
+#	@tested ok 5.47.0, Fedora 28
 #	@note could not locate additional data to remove
 #
-#	@cleaner Orage
+#	@cleaner kf5-Baloo File Indexer
 #	@contributor muratoria
 #######################################################################
 #	This program is free software: you can redistribute it and/or modify
@@ -26,15 +26,20 @@
 #	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #######################################################################
 -->
-<cleaner id="orage" os="linux">
-  <label>Orage</label>
-  <description>calender application</description>
-  <running type="exe">orage</running>
-  <option id="calender">
-    <label>Calender</label>
-    <description>Delete calender events, categories and alarms</description>
-    <action command="delete" search="walk.files" path="~/.local/share/orage/" regex="\.ics$"/>
-    <action command="delete" search="file" path="~/.local/share/orage/orage_categories.txt"/>
-    <action command="delete" search="file" path="~/.local/share/orage/orage_persistent_alarms.txt"/>
+<cleaner id="baloo" os="linux">
+  <label>Baloo</label>
+  <description>file index daemon</description>
+  <running type="exe">baloo</running>
+  <running type="exe">balooindex</running>
+  <option id="index">
+    <label>Index</label>
+    <description>Delete the index database, which may contain an index of file and folder names, media metadata and document contents. Indices will be rebuilt on next run.</description>
+    <action command="delete" search="glob" path="~/.local/share/baloo/index*"/>
+  </option>
+  <option id="settings">
+    <label>Settings</label>
+    <description>Delete configuration file</description>
+    <warning>Deletes all settings</warning>
+    <action command="delete" search="file" path="~/.config/baloofilerc"/>
   </option>
 </cleaner>
